@@ -56,9 +56,26 @@ function displayTempFieldOnChange(executionContext) {
   try {
     debugger;
     let formContext = executionContext.getFormContext();
-    let demo = formContext.getAttribute("crff8_changeadaptcustom").getValue();
-    let demoType = typeof demo;
-    console.log(`Value: ${demo} - Type: ${demoType}`);
+    let getSecretText = formContext
+      .getAttribute("crff8_changeadaptcustom")
+      .getValue();
+    let isFieldVisible = formContext
+      .getControl("crff8_displaytempvaluecustom")
+      .getVisible();
+
+    console.log(getSecretText);
+    console.log(isFieldVisible);
+    console.log(getSecretText.localeCompare("hellowRd"));
+    // const secrectVerifyText = "helloWorld";
+    // if (getSecretText.localeCompare(secrectVerifyText)) {
+    //   let isFieldVisible = formContext
+    //     .getControl("crff8_displaytempvaluecustom")
+    //     .getVisible();
+    //   if (isFieldVisible) {
+    //     alert("You have found the password!");
+    //   }
+    // }
+
     // let inspectionRequired = formContext
     //   .getAttribute("crff8_caladanhouseinspectionrequiredcustom")
     //   .getValue();
