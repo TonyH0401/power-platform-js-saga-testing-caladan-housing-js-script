@@ -1,6 +1,6 @@
 function alertOnLoad(executionContext) {
   try {
-    debugger;
+    // debugger;
     // Get the 'formContext' from 'executionContext':
     let formContext = executionContext.getFormContext();
     // debugger;
@@ -32,37 +32,39 @@ function alertOnLoad(executionContext) {
         ? { inspectionDate: new Date(inspectionDate).toLocaleDateString() }
         : {}),
     };
-    debugger;
-    // Set visibility for 'Timeline tab'
+    // debugger;
+    // Set visibility for 'Timeline tab':
     let timelineTab = formContext.ui.tabs.get("timeline_tab");
     if (!inspectionRequired) {
       timelineTab.setVisible(false);
     }
     debugger;
+    // Use `addOnChange` to set a function to be called when an "on change" event occur for a field:
+    /* You can totally trigger this using `onChange` from a field but it's safer to trigger this from `onLoad`. */
+    formContext
+      .getAttribute("crff8_changeadaptcustom")
+      .addOnChange(displayTempFieldOnChange);
+    debugger;
     console.log("This is the value: " + JSON.stringify(caladanHouse, null, 2));
     // alert("This is the value: " + JSON.stringify(caladanHouse, null, 2));
-    // formContext
-    //   .getAttribute("crff8_caladanhouseinspectionrequiredcustom")
-    //   .addOnChange(displayDateOnChange);
-    // setTimeout(function () {
-    //   displayDateOnChange(executionContext); // Manually invoke if needed
-    // }, 500);
   } catch (error) {
     debugger;
-    console.error("Error message: " + error);
+    console.error(`Error message for "alertOnLoad()": ` + error);
   }
 }
-// function displayDateOnChange(executionContext) {
-//   try {
-//     debugger;
-//     let formContext = executionContext.getFormContext();
-//     alert(formContext);
-//     // let inspectionRequired = formContext
-//     //   .getAttribute("crff8_caladanhouseinspectionrequiredcustom")
-//     //   .getValue();
-//     // console.log(inspectionRequired);
-//   } catch (error) {
-//     debugger;
-//     console.error("Error message: " + error);
-//   }
-// }
+function displayTempFieldOnChange(executionContext) {
+  try {
+    debugger;
+    let formContext = executionContext.getFormContext();
+    let demo = formContext.getAttribute("crff8_changeadaptcustom").getValue();
+    let demoType = typeof demo;
+    console.log(`Value: ${demo} - Type: ${demoType}`);
+    // let inspectionRequired = formContext
+    //   .getAttribute("crff8_caladanhouseinspectionrequiredcustom")
+    //   .getValue();
+    // console.log(inspectionRequired);
+  } catch (error) {
+    debugger;
+    console.error(`Error message for "displayTempFieldOnChange()": ` + error);
+  }
+}
