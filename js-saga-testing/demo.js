@@ -33,6 +33,12 @@ function alertOnLoad(executionContext) {
         : {}),
     };
     debugger;
+    // Set visibility for 'Timeline tab'
+    let timelineTab = formContext.ui.tabs.get("timeline_tab");
+    if (!inspectionRequired) {
+      timelineTab.setVisible(false);
+    }
+    debugger;
     console.log("This is the value: " + JSON.stringify(caladanHouse, null, 2));
     // alert("This is the value: " + JSON.stringify(caladanHouse, null, 2));
     // formContext
