@@ -1,3 +1,5 @@
+const secrectText = "helloWorld";
+
 function alertOnLoad(executionContext) {
   try {
     // debugger;
@@ -38,7 +40,17 @@ function alertOnLoad(executionContext) {
     if (!inspectionRequired) {
       timelineTab.setVisible(false);
     }
-    debugger;
+    // debugger;
+    // Check easter egg exists onLoad:
+    if (
+      formContext
+        .getAttribute("crff8_changeadaptcustom")
+        .getValue()
+        .localeCompare(secrectText) == 0
+    ) {
+      formContext.getControl("crff8_displaytempvaluecustom").setVisible(true);
+    }
+    // debugger;
     // Use `addOnChange` to set a function to be called when an "on change" event occur for a field:
     /* You can totally trigger this using `onChange` from a field but it's safer to trigger this from `onLoad`. */
     formContext
@@ -46,7 +58,6 @@ function alertOnLoad(executionContext) {
       .addOnChange(displayTempFieldOnChange);
     debugger;
     console.log("This is the value: " + JSON.stringify(caladanHouse, null, 2));
-    // alert("This is the value: " + JSON.stringify(caladanHouse, null, 2));
   } catch (error) {
     debugger;
     console.error(`Error message for "alertOnLoad()": ` + error);
@@ -56,30 +67,15 @@ function displayTempFieldOnChange(executionContext) {
   try {
     debugger;
     let formContext = executionContext.getFormContext();
-    let getSecretText = formContext
+    let getSecretInputText = formContext
       .getAttribute("crff8_changeadaptcustom")
       .getValue();
-    let isFieldVisible = formContext
-      .getControl("crff8_displaytempvaluecustom")
-      .getVisible();
-
-    console.log(getSecretText);
-    console.log(isFieldVisible);
-    console.log(getSecretText.localeCompare("hellowRd"));
-    // const secrectVerifyText = "helloWorld";
-    // if (getSecretText.localeCompare(secrectVerifyText)) {
-    //   let isFieldVisible = formContext
-    //     .getControl("crff8_displaytempvaluecustom")
-    //     .getVisible();
-    //   if (isFieldVisible) {
-    //     alert("You have found the password!");
-    //   }
-    // }
-
-    // let inspectionRequired = formContext
-    //   .getAttribute("crff8_caladanhouseinspectionrequiredcustom")
-    //   .getValue();
-    // console.log(inspectionRequired);
+    if (getSecretInputText.localeCompare(secrectText) == 0) {
+      alert("You have found an Easter Egg!");
+      formContext.getControl("crff8_displaytempvaluecustom").setVisible(true);
+    } else {
+      formContext.getControl("crff8_displaytempvaluecustom").setVisible(false);
+    }
   } catch (error) {
     debugger;
     console.error(`Error message for "displayTempFieldOnChange()": ` + error);
