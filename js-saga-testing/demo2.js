@@ -48,47 +48,82 @@ var Example3 = window.Example3 || {};
       }
       // debugger;
       // Check easter egg exists onLoad:
-      // if (
-      //   formContext
-      //     .getAttribute("crff8_changeadaptcustom")
-      //     .getValue()
-      //     .localeCompare(secrectText) == 0
-      // ) {
-      //   formContext.getControl("crff8_displaytempvaluecustom").setVisible(true);
-      // }
+      if (
+        formContext
+          .getAttribute("crff8_changeadaptcustom")
+          .getValue()
+          .localeCompare(secrectText) == 0
+      ) {
+        formContext.getControl("crff8_displaytempvaluecustom").setVisible(true);
+      }
+      const multipleChoiceValue = formContext
+        .getAttribute("crff8_adaptmultiplecustom")
+        .getValue();
+      if (multipleChoiceValue) {
+        formContext
+          .getControl("crff8_multiplechoicetestcustom")
+          .setVisible(true);
+      }
       // debugger;
       // Use `addOnChange` to set a function to be called when an "on change" event occur for a field:
       /* You can totally trigger this using `onChange` from a field but it's safer to trigger this from `onLoad`. */
-      // formContext
-      //   .getAttribute("crff8_changeadaptcustom")
-      //   .addOnChange(this.displayTempFieldOnChange);
+      formContext
+        .getAttribute("crff8_changeadaptcustom")
+        .addOnChange(this.displayTempFieldOnChange);
+      formContext
+        .getAttribute("crff8_adaptmultiplecustom")
+        .addOnChange(this.multipleChoiceDisplayOnChange);
       debugger;
       console.log(
-        "This is the value the second time: " + JSON.stringify(caladanHouse, null, 2)
+        "This is the value the second time: " +
+          JSON.stringify(caladanHouse, null, 2)
       );
     } catch (error) {
       debugger;
       console.error(`Error message for "alertOnLoad()": ` + error);
     }
   };
-  // this.displayTempFieldOnChange = function (executionContext) {
-  //   try {
-  //     debugger;
-  //     let formContext = executionContext.getFormContext();
-  //     let getSecretInputText = formContext
-  //       .getAttribute("crff8_changeadaptcustom")
-  //       .getValue();
-  //     if (getSecretInputText.localeCompare(secrectText) == 0) {
-  //       alert("You have found an Easter Egg!");
-  //       formContext.getControl("crff8_displaytempvaluecustom").setVisible(true);
-  //     } else {
-  //       formContext
-  //         .getControl("crff8_displaytempvaluecustom")
-  //         .setVisible(false);
-  //     }
-  //   } catch (error) {
-  //     debugger;
-  //     console.error(`Error message for "displayTempFieldOnChange()": ` + error);
-  //   }
-  // };
+  this.displayTempFieldOnChange = function (executionContext) {
+    try {
+      debugger;
+      let formContext = executionContext.getFormContext();
+      let getSecretInputText = formContext
+        .getAttribute("crff8_changeadaptcustom")
+        .getValue();
+      if (getSecretInputText.localeCompare(secrectText) == 0) {
+        alert("You have found an Easter Egg!");
+        formContext.getControl("crff8_displaytempvaluecustom").setVisible(true);
+      } else {
+        formContext
+          .getControl("crff8_displaytempvaluecustom")
+          .setVisible(false);
+      }
+    } catch (error) {
+      debugger;
+      console.error(`Error message for "displayTempFieldOnChange()": ` + error);
+    }
+  };
+  this.multipleChoiceDisplayOnChange = function (executionContext) {
+    try {
+      debugger;
+      let formContext = executionContext.getFormContext();
+      let getMultipleChoiceValue = formContext
+        .getAttribute("crff8_adaptmultiplecustom")
+        .getValue();
+      if (getMultipleChoiceValue) {
+        formContext
+          .getControl("crff8_multiplechoicetestcustom")
+          .setVisible(true);
+      } else {
+        formContext
+          .getControl("crff8_multiplechoicetestcustom")
+          .setVisible(false);
+      }
+    } catch (error) {
+      debugger;
+      console.error(
+        `Error message for "multipleChoiceDisplayOnChange()": ` + error
+      );
+    }
+  };
 }).call(Example3);
