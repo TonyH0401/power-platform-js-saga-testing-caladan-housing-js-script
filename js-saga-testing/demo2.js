@@ -4,6 +4,7 @@
 var Example3 = window.Example3 || {};
 (function () {
   const secrectText = "helloWorld";
+  const secrectNumber = 111;
 
   this.alertOnLoad = function (executionContext) {
     try {
@@ -98,9 +99,19 @@ var Example3 = window.Example3 || {};
           .getControl("crff8_displaytempvaluecustom")
           .setVisible(false);
       }
+      if (Example3.checkAndConvertNumber(getSecretInputText) == secrectNumber) {
+        console.log("it is a number");
+      }
     } catch (error) {
       debugger;
       console.error(`Error message for "displayTempFieldOnChange()": ` + error);
+    }
+  };
+  this.checkAndConvertNumber = function (input) {
+    if (isNaN(input)) {
+      return null;
+    } else {
+      return Number(input);
     }
   };
   this.multipleChoiceDisplayOnChange = function (executionContext) {
