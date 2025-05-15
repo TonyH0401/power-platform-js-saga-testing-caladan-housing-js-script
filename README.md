@@ -37,6 +37,10 @@ Here is a list of documents I used for client-side scripting. The Microsoft docu
 
 _Ordered from newest to oldest_
 
+### 2025/04/17
+
+Originally, I used a simple funtions but it was creating problems, so I moved to using namespace which fixes a lot of said problems. Here is the namespace code snippet example: https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/walkthrough-write-your-first-client-script#step-2-write-your-javascript-code.
+
 ### 2025/04/16
 
 Here is some additional function offered by `Xrm`, the modern and still supported by Microsoft:
