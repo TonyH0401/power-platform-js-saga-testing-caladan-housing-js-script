@@ -1,3 +1,4 @@
+// I need to add a handler function when new data are created, when the record is newly created
 // A namespace defined for the sample code
 // As a best practice, you should always define
 // a unique namespace for your libraries
