@@ -1,4 +1,4 @@
-# Power Platform Project: JS Saga Testing - Javascript Client-side Scripting
+# Power Platform Project: JS Saga Testing Solution - JS Saga Testing App - Javascript Script
 
 Welcome to a Power Platform project called **JS Saga Testing**. In this project, we will use Javascript to manipulate UI components and retrieve data from UI properties and query data from Dataverse using Odata (you can also retrive data using FetchXML).
 
@@ -24,7 +24,7 @@ Here is a list of documents I used for client-side scripting. The Microsoft docu
 
 - Client-side reference: https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference.
 
-  - There are multiple instances where there 2 functions that perform the same operations such as `formContext.getControl()` and `formContext.ui.contols.get()`, so watch out
+  - There are multiple instances where there 2 functions that perform the same operations such as `formContext.getControl()` and `formContext.ui.controls.get()`, so watch out
   - There are some functions that can get the attributes from the controls and the controls from the attributes.
 
 - The first thing you want to do is to get the record GUID. The simplest and most modern method to get the record GUID: https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-data-entity/getid.
