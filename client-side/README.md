@@ -26,6 +26,12 @@ For more information:
 
 _Ordered from newest to oldest_
 
+### 2025/04/20
+
+The `Xrm` object offers a lot of functionality. The `Xrm.WebApi` is different from the `Web API`.
+
+- https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/clientapi-xrm.
+
 ### 2025/04/19
 
 The usage of `setSubmitMode("always")` ensures that the data is **always submitted** when the record is saved. There is also `dirty` where the data is submitted when the record is saved but **the data actual changed** and `never` is where the data is **never submitted** when the record is saved.
