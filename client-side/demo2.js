@@ -1,3 +1,4 @@
+// I need to add a handler function when new data are created, when the record is newly created
 // A namespace defined for the sample code
 // As a best practice, you should always define
 // a unique namespace for your libraries
@@ -10,7 +11,7 @@ var Example3 = window.Example3 || {};
     try {
       // debugger;
       // Get the 'formContext' from 'executionContext':
-      let formContext = executionContext.getFormContext();
+      const formContext = executionContext.getFormContext();
       // debugger;
       // Get values from attributes:
       let houseAddress =
@@ -42,21 +43,29 @@ var Example3 = window.Example3 || {};
           : {}),
       };
       // debugger;
-      // Set visibility for 'Timeline tab':
+      // Set visibility for 'Timeline tab', you need to define the unique ID name in PowerApss and use it in here:
       let timelineTab = formContext.ui.tabs.get("timeline_tab");
       if (!inspectionRequired) {
         timelineTab.setVisible(false);
       }
       // debugger;
-      // Check easter egg exists onLoad:
+      // Verify "crff8_changeadaptcustom" value equals to secretText, set visible if true:
       if (
-        formContext
-          .getAttribute("crff8_changeadaptcustom")
-          .getValue()
-          .localeCompare(secrectText) == 0
+        formContext.getAttribute("crff8_changeadaptcustom").getValue() != null
       ) {
-        formContext.getControl("crff8_displaytempvaluecustom").setVisible(true);
+        if (
+          formContext
+            .getAttribute("crff8_changeadaptcustom")
+            .getValue()
+            .localeCompare(secrectText) == 0
+        ) {
+          formContext
+            .getControl("crff8_displaytempvaluecustom")
+            .setVisible(true);
+        }
       }
+
+      // Verify "crff8_adaptmultiplecustom" value is true, set visible if true:
       const multipleChoiceValue = formContext
         .getAttribute("crff8_adaptmultiplecustom")
         .getValue();
@@ -68,9 +77,11 @@ var Example3 = window.Example3 || {};
       // debugger;
       // Use `addOnChange` to set a function to be called when an "on change" event occur for a field:
       /* You can totally trigger this using `onChange` from a field but it's safer to trigger this from `onLoad`. */
+      // add onChange trigger for "crff8_changeadaptcustom" (text field):
       formContext
         .getAttribute("crff8_changeadaptcustom")
         .addOnChange(this.displayTempFieldOnChange);
+      // add onChange trigger for "crff8_adaptmultiplecustom" (multiple choice):
       formContext
         .getAttribute("crff8_adaptmultiplecustom")
         .addOnChange(this.multipleChoiceDisplayOnChange);
@@ -87,11 +98,13 @@ var Example3 = window.Example3 || {};
   this.displayTempFieldOnChange = function (executionContext) {
     try {
       debugger;
-      let formContext = executionContext.getFormContext();
-      let getSecretInputText = formContext
-        .getAttribute("crff8_changeadaptcustom")
-        .getValue();
+      const formContext = executionContext.getFormContext();
+      const getSecretInput = formContext.getAttribute(
+        "crff8_changeadaptcustom"
+      );
+      let getSecretInputText = getSecretInput.getValue();
       if (getSecretInputText.localeCompare(secrectText) == 0) {
+        // if getSecretInputText equals secretText, trigger the easter egg:
         alert("You have found an Easter Egg!");
         formContext.getControl("crff8_displaytempvaluecustom").setVisible(true);
       } else {
@@ -99,8 +112,25 @@ var Example3 = window.Example3 || {};
           .getControl("crff8_displaytempvaluecustom")
           .setVisible(false);
       }
-      if (Example3.checkAndConvertNumber(getSecretInputText) == secrectNumber) {
-        console.log("it is a number");
+      let getSecretInputNumber =
+        Example3.checkAndConvertNumber(getSecretInputText);
+      if (getSecretInputNumber == secrectNumber) {
+        // if getSecretInputText equals secretNumber, change multiple choice value to true and fire on change:
+        const multipleChoiceFieldAttribute = formContext.getAttribute(
+          "crff8_adaptmultiplecustom"
+        );
+        multipleChoiceFieldAttribute.setValue(true);
+        multipleChoiceFieldAttribute.setSubmitMode("always");
+        /* Normally, changing the multiple choice value using the UI does trigger the onChange event. However, changing the multiple choice's value 
+        doesn't trigger the onChange event. For this, you will need fireOnChange().
+        More info here: https://chatgpt.com/share/67f4996d-71bc-8010-ad07-6432c4fc865d + https://chatgpt.com/share/67f49d20-e55c-8010-9792-e120560c067c*/
+        multipleChoiceFieldAttribute.fireOnChange();
+      } else {
+        console.log("false case");
+        formContext.getAttribute("crff8_adaptmultiplecustom").setValue(false);
+        formContext
+          .getControl("crff8_multiplechoicetestcustom")
+          .setVisible(false);
       }
     } catch (error) {
       debugger;
@@ -116,8 +146,8 @@ var Example3 = window.Example3 || {};
   };
   this.multipleChoiceDisplayOnChange = function (executionContext) {
     try {
-      debugger;
-      let formContext = executionContext.getFormContext();
+      // debugger;
+      const formContext = executionContext.getFormContext();
       let getMultipleChoiceValue = formContext
         .getAttribute("crff8_adaptmultiplecustom")
         .getValue();
