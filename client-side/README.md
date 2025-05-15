@@ -26,6 +26,17 @@ For more information:
 
 _Ordered from newest to oldest_
 
+### 2025/04/18
+
+Originally, I used a Javascript without `namespace`, it ran into problems such as there can't be two running scripts (but different scripts) at the same time, I can't correctly disable a script, etc. Using the `namespace` structure fixes these problems, I also only use `var` once when I declare the `namespace`, this also fixed the problem.
+
+If you want to use the function, call the function with the namespace like this `Example.loadLayout()`:
+
+- https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/walkthrough-write-your-first-client-script#configure-form-on-load-event.
+- https://learn.microsoft.com/en-us/training/modules/actions-client-script-power-platform/exercise. This method doesn't use a namespace, it works with simple and basic script but it will cause problems later on, especially with multiple scripts.
+
+There isn't a true `main()` function, the `main()` function is the function mainly used when we declare it in the "Event Handler". From this `main()` function, we can call other functions using `this` keyword, but if other functions call other different functions, the `this` keyword doesn't work and we need to use `namespace`. This means the deeper the layer it goes, the more we have to use the `namespace` to call other functions.
+
 ### 2025/04/17
 
 We can use `onChange` event handler to execute the script when there are changes within the file, we can also use `addOnChange()` to add functions that will be executed when specific controls are changed. There are no big differences between those two, the only difference is `addOnChange()` ensure all of the controls and fields are loaded before any on change events can be performed.
