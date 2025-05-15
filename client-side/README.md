@@ -26,6 +26,17 @@ For more information:
 
 _Ordered from newest to oldest_
 
+### 2025/04/19
+
+The usage of `setSubmitMode("always")` ensures that the data is **always submitted** when the record is saved. There is also `dirty` where the data is submitted when the record is saved but **the data actual changed** and `never` is where the data is **never submitted** when the record is saved.
+
+- More information: https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/attributes/setsubmitmode.
+
+Normally, the changing of data in the UI will trigger the `onChange` event handler but changing the data using code will not trigger the `onChange` event handler. So, in order to trigger it, we will need to use the `fireOnChange()` function immediately after changing the value.
+
+- https://chatgpt.com/share/67f4996d-71bc-8010-ad07-6432c4fc865d.
+- https://chatgpt.com/share/67f49d20-e55c-8010-9792-e120560c067c*/
+
 ### 2025/04/18
 
 Originally, I used a Javascript without `namespace`, it ran into problems such as there can't be two running scripts (but different scripts) at the same time, I can't correctly disable a script, etc. Using the `namespace` structure fixes these problems, I also only use `var` once when I declare the `namespace`, this also fixed the problem.
